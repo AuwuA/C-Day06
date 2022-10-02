@@ -134,6 +134,117 @@ void test06()
     }
 }
 
+// 字符串拷贝
+char *myStrcpy(char *srcStr, char *desStr)
+{
+    char *temp = desStr;
+    while(1)
+    {
+        if (*srcStr == '\0') {
+            *temp++ = *srcStr;
+            return desStr;
+        } else {
+            *temp++ = *srcStr;
+        }
+
+        srcStr++;
+    }
+}
+
+void test07()
+{
+    char *src = "helloworldfuoie11ll";
+
+    char dst[100];
+
+    myStrcpy(src, dst);
+
+    printf("dst = %s\n", dst);
+}
+
+void removeSpace(char *str)
+{
+    while(*str) {
+        while (*str == ' ') {
+          char *temp1 = str;
+          char *temp2 = str + 1;
+          while (*temp2) {
+              *temp1++ = *temp2++;
+          }
+          *temp1 = *temp2;
+        }
+        str++;
+    }
+}
+
+// 字符串去空格
+void test08()
+{
+    char str[] = "ni chou sha, chou ni z    a    di";
+    removeSpace(str);
+    puts(str);
+}
+
+// 字串在字符串中首次出现的位置
+int isSubStr(char *str, char *subStr)
+{
+    while(*subStr) {
+        if (*subStr != *str) {
+            return 0;
+        }
+        subStr++;
+        str++;
+    }
+    return 1;
+}
+
+char *myStrstr(char *str, char *subStr)
+{
+    while(*str) {
+        if (isSubStr(str, subStr)) {
+            return str;
+        }
+        str++;
+    }
+    return NULL;
+}
+
+void test09()
+{
+    char *str = "hellomollho";
+    char *subStr = "lho";
+    char * p = myStrstr(str, subStr);
+    if (NULL == p) {
+        printf("Not found\n");
+    } else {
+        printf("Found it: %s\n", p);
+    }
+}
+
+// 统计子串在字符串中出现的次数
+int statisticSubstrTimes(char *str, char *subStr)
+{
+    int num = 0;
+    while(*str){
+        if (0 != isSubStr(str, subStr)) {
+            num++;
+        }
+        str++;
+    }
+    return num;
+}
+
+void test10()
+{
+    char str[] = "helloabclloxyzllo";
+    char substr[] = "llo";
+
+    int ret = statisticSubstrTimes(str, substr);
+
+    printf("times = %d\n", ret);
+}
+
+// 带参main函数 argc参数个数 argv字符串数组
 int main(int argc, char *argv[])
 {
 //    test01();
@@ -141,7 +252,14 @@ int main(int argc, char *argv[])
 //    test03();
 //    test04();
 //    test05();
-    test06();
+//    test06();
+//    test07();
 
+//    for (int i = 0; i < argc; i++) {
+//        puts(argv[i]);
+//    }
+//    test08();
+//    test09();
+    test10();
     return 0;
 }
